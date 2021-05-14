@@ -37,7 +37,6 @@ void Str(int* pProcRows, int RowNum, string a, string b)
 
         while ((t1 < a_size) && (t2 < b_size))
         {
-            //cout << a[t1] << " " << b[t2] << " " << t1  << endl;
             if (a[t1] != b[t2])
             {
                 if (maxx < tmpMax)
@@ -70,7 +69,6 @@ void Str(int* pProcRows, int RowNum, string a, string b)
         int res_len = 0, res_ind = 0;
         for (int i = 0; i < ProcNum; i++)
         {
-            //cout << i << " " << maxxArr[i] << " " << indices[i] << endl;
             if (res_len < maxxArr[i])
             {
                 res_len = maxxArr[i];
@@ -178,8 +176,6 @@ int main(int argc, char* argv[])
     double Start, Finish, Duration;
 
     setlocale(LC_ALL, "Russian");
-    //char* char_a;
-    //char* char_b;
     int a_size = 0;
     int b_size = 0;
 
@@ -212,26 +208,16 @@ int main(int argc, char* argv[])
         a_size = a.size();
         b_size = b.size();
 
-        //for (int i = 1; i < ProcNum; i++)
-        //{
-            //MPI_Send(a.c_str(), a.size(), MPI_CHAR, i, 0, MPI_COMM_WORLD);
-            //MPI_Send(b.c_str(), b.size(), MPI_CHAR, i, 0, MPI_COMM_WORLD);
-        //}
     }
 
     MPI_Barrier(MPI_COMM_WORLD);
 
 
-    //char_a = &a[0];
-    //char_b = &b[0];
     MPI_Bcast(&a_size, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&b_size, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     MPI_Bcast(&a, a.size(), MPI_CHAR, 0, MPI_COMM_WORLD);
     MPI_Bcast(&b, b.size(), MPI_CHAR, 0, MPI_COMM_WORLD);
-    //MPI_Bcast(&a[0], a_size, MPI_CHAR, 0, MPI_COMM_WORLD);
-    //MPI_Bcast(&b[0], b_size, MPI_CHAR, 0, MPI_COMM_WORLD);
-//    MPI_Send(a.c_str(), a.size(), MPI_CHAR, 0, 0, MPI_COMM_WORLD);
 
     MPI_Barrier(MPI_COMM_WORLD);
 
@@ -239,7 +225,6 @@ int main(int argc, char* argv[])
 
     DataDistribution(pMatrix, pProcRows, a_size, b_size, RowNum);
 
-    //TestDistribution(pMatrix, pProcRows, a_size, b_size, RowNum);
 
     if (ProcRank == 0)
     {
@@ -262,7 +247,6 @@ int main(int argc, char* argv[])
         printf("\nTime of execution = %f\n", Duration);
     }
 
-    //ProcessTermination(pMatrix, pProcRows);
     MPI_Finalize();
 
 }
